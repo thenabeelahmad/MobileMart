@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load bootstrap3 %}
+
+
+	<section id="sec1" class="container-fluid" style="background-image: url('/static/d.jpg');background-size:cover;height: 100vh;box-shadow:0px 10px 20px black;">
+		
+		<div class="jumbotron" style="position: relative;top: 100px;min-height:73vh;background-color: rgba(0,0,0,0.4);border:2px solid white;color: white;" data-aos="fade-up">
+			<form action="{% url 'filtermobile' %}" method="POST" enctype="multipart/form-data">
+					{% csrf_token %}
+					<div class="form-group">
+						<label>Search:</label>
+						<input  type="text" placeholder="Enter you desired Company" name="brand" value="" class="form-control">
+					</div>
+					<div class="form-group">
+						<input type="submit" class="btn btn-info">
+					</div>
+				</form>
+				
+		
+			<table class="table" >
+				<tr>
+					<th style="color: black">Company</th>
+					<th style="color: black">Model</th>
+					<th style="color: black">ROM</th>
+					<th style="color: black">RAM</th>
+					<th style="color: black">Price</th>
+					<th style="color: black">More</th>
+				</tr>
+				{% for i in data %}
+				<tr>
+					<td>{{i.0}}</td>
+					<td>{{i.1}}</td>
+					<td>{{i.2}}</td>
+					<td>{{i.3}}</td>
+					<td>{{i.4}}</td>
+					<td><a class="btn btn-info" href="{% url 'mobdetail' u=i.1 %}">More</a></td>
+				
+				</tr>	
+				{% endfor %}
+			</table>
+		</div>
+
+	</section>
+{% endblock %}

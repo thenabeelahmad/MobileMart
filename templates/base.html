@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+  <style type="text/css">
+  	.navbar
+  	{
+  		background-color:dodgerblue;
+  		box-shadow: 0px 10px 15px black;
+  		border:none;
+  		border-bottom: 2px solid black;
+  	}
+  	body
+  	{
+	 font-family:cursive; 		
+   background-image: url('/static/M1.jpg');
+   background-size:cover;
+   overflow-x: hidden;
+
+  	}
+  	a
+  	{
+  		color: white !important;
+  	}
+    li,.help-block
+    {
+      color: white !important;
+    }
+  	button	
+  	{
+  		color: white !important;
+  		background: black !important;
+  	}
+  	a:hover
+  	{
+  		background-color: black !important;
+  		color:white; 
+  		transition: 0.6s !important;
+  	}
+  	.active a
+  	{
+  		background-color: black !important;
+  		color:white; 
+  		transition: 0.6s !important;
+  	}
+  	html
+  	{
+  		scroll-behavior: smooth;
+      min-height: 100vh;
+  	}
+  </style>
+
+  </head>
+
+<body data-spy="scroll" data-target=".navbar">
+  
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<a href="" class="navbar-brand" style="font-family:chiller !important;font-size:35px;">Mobile Mart</a>
+				<button class="navbar-toggle" data-toggle="collapse" data-target="#mydiv">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="collapse navbar-collapse" id="mydiv">
+			
+        {% if user.is_superuser %}
+
+      	<ul class="nav navbar-nav">
+					
+          <li><a href="{% url 'home' %}">Home</a></li>
+					<li class="dropdown">
+						<a href="" class="dropdown-toggle" type="button" data-toggle="dropdown">Customer
+  <span class="caret"></span></a>
+  <ul class="dropdown-menu" style="background-color: dodgerblue;">
+    <li><a href="{% url 'addcus' %}">Add Customer</a></li>
+    <li><a href="{% url 'cuslist' %}">Customers List</a></li>
+  </ul>
+												</li>
+					<li class="dropdown">
+						<a href="" class="dropdown-toggle" type="button" data-toggle="dropdown">Mobiles
+  <span class="caret"></span></a>
+  <ul class="dropdown-menu" style="background-color: dodgerblue;">
+    <li><a href="{% url 'addcompany' %}">Add Company</a></li>
+    <li><a href="{% url 'addmobile' %}">Add Mobile</a></li>
+    <li><a href="{% url 'moblist' %}">Mobile Details</a></li>
+    <li><a href="{% url 'filtermobile' %}">Filter Mobiles</a></li>
+  </ul>
+	</li>
+					<li><a href="">Search Bill</a></li>
+					<li><a href="">All Transactions</a></li>
+				</ul>			
+
+        {% elif user.is_authenticated %}
+        <ul class="nav navbar-nav">
+          
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="">Contact</a></li>
+          <li><a href="{% url 'filtermobile' %}">Search Mobiles</a></li>
+          
+          
+        </ul>     
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="{% url 'cusdetail' u=user %}">Profile</a></li>
+          <li><a href="">View Cart</a></li>
+          
+          
+        </ul>     
+
+
+        {% else %}
+        <ul class="nav navbar-nav">
+          
+          <li><a href="">Home</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="">Contact</a></li>
+          <li><a href="{% url 'filtermobile' %}">Search Mobiles</a></li>
+          
+          
+        </ul>     
+      {% endif %}  
+
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<a href="" class="dropdown-toggle" type="button" data-toggle="dropdown">Accounts
+  <span class="caret"></span></a>
+  <ul class="dropdown-menu" style="background-color: dodgerblue;">
+    <li>
+
+    {% if not user.is_authenticated %}
+      <a href="{% url 'login' %}">Login</a></li>
+					<li><a href="{% url 'signup' %}">SignUp</a></li>
+		{% else %}
+    			<li><a href="{% url 'logout' %}">Logout</a></li>
+    
+					
+    </ul>
+  				<li><a href="{% url 'editpro' %}">Welcome {{user}}..!!</a></li>
+{% endif %}
+				</ul>
+			</div>
+
+		</div>
+	</nav>
+
+{% block content %}
+	<section id="sec1" class="container-fluid" style="background-image: url('/static/M1.jpg');background-size:cover;height: 100vh;box-shadow:0px 10px 20px black;">
+		
+		<div class="jumbotron" style="position: relative;top: 100px;background-color: rgba(0,0,0,0.4);border:2px solid white;color: white;" data-aos="fade-right">
+			<h1 style="font-family:chiller;font-size: 150px;text-align: center;">Mobile Mart</h1>
+			<h1 style="text-align: center;">Your NeighBourHood Online Mobile Shop...</h1>
+			<p style="text-align: center;">Lets Drive to Mart..</p>
+		</div>
+
+	</section>
+
+{% endblock %}
+<script>
+  AOS.init({
+  	duration:2000,
+  });
+</script>
+</body>
+</html>
